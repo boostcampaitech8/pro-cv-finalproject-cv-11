@@ -1,0 +1,60 @@
+[
+  {
+    "event_id": 1,
+    "event_type": "급차로 변경",
+    "violation_type": "교통위반(교통단속 포함)",
+    "timestamp": "00:01:23",
+    "risk_level": "높음",
+    "vehicle_number": "12가3456",
+    "location": "서울시 강남구 테헤란로 123",
+    "date": "2024-01-15",
+    "time": "14:23:45",
+    "title": "급차로 변경 위반 차량 신고",
+    "content": "해당 차량이 급격하게 차로를 변경하여 위험한 상황을 초래했습니다.",
+    "video_clip_path": null,
+    "images": {
+      "key_frame": null,
+      "vehicle_crop": null,
+      "license_plate_crop": null
+    }
+  },
+  {
+    "event_id": 2,
+    "event_type": "차선 침범",
+    "violation_type": "교통위반(교통단속 포함)",
+    "timestamp": "00:03:45",
+    "risk_level": "중간",
+    "vehicle_number": "34나5678",
+    "location": "서울시 강남구 테헤란로 456",
+    "date": "2024-01-15",
+    "time": "14:25:07",
+    "title": "차선 침범 위반 차량 신고",
+    "content": "해당 차량이 지속적으로 차선을 침범하며 주행했습니다.",
+    "video_clip_path": null,
+    "images": {
+      "key_frame": null,
+      "vehicle_crop": null,
+      "license_plate_crop": null
+    }
+  },
+  {
+    "event_id": 3,
+    "event_type": "전방 차량과 거리 급감",
+    "violation_type": "교통위반(교통단속 포함)",
+    "timestamp": "00:05:12",
+    "risk_level": "높음",
+    "vehicle_number": "56다7890",
+    "location": "서울시 강남구 테헤란로 789",
+    "date": "2024-01-15",
+    "time": "14:26:34",
+    "title": "안전거리 미준수 차량 신고",
+    "content": "해당 차량이 전방 차량과의 안전거리를 지키지 않고 급격히 접근했습니다.",
+    "video_clip_path": null,
+    "images": {
+      "key_frame": null,
+      "vehicle_crop": null,
+      "license_plate_crop": null
+    }
+  }
+]
+
