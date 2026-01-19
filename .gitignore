@@ -1,3 +1,12 @@
 # frontend
-frontend/docs/
-frontend/ass3-1
+legacy/frontend/docs/
+legacy/frontend/ass3-1
+
+# pycache
+*.pyc
+
+# storate
+storage/
+
+# database
+app/db.sqlite3
