@@ -15,18 +15,21 @@ from ultralytics import YOLO
 
 # ========== 설정 변수 ==========
 # 모델 설정
-MODEL_WEIGHT = "runs/detect/cv-11-final/yolo26s_v4-2_e1_b64/weights/best.pt"
+MODEL_WEIGHT = "./runs/detect/cv-11-final/yolo26s_v5_e30_b64/weights/best.pt"
 
 # 데이터 경로
 IMAGE_DIR = "/data/ephemeral/home/dataset/flatten_road_dataset_bb/val/images"
 
 # Tracking 설정
 CONF_THRESHOLD = 0.25
+# CONF_THRESHOLD = 0.0
 IOU_THRESHOLD = 0.45
-TRACKER_TYPE = "bytetrack.yaml"  # "botsort.yaml" or "bytetrack.yaml"
+# TRACKER_TYPE = "./models/yolo26s/bytetrack.yaml"  # 
+TRACKER_TYPE = "./models/yolo26s/botsort.yaml"
+# "botsort.yaml" or "bytetrack.yaml"
 
 # 저장 경로
-VERSION="v4-2"
+VERSION="v5-bot"
 TRACK_PROJECT = f"track"
 TRACK_NAME_PREFIX = f"yolo26s_{VERSION}"
 
