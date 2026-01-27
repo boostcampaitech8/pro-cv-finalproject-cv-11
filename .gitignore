@@ -3,7 +3,7 @@ plans/
 models/yolo26/yolo26s.pt
 runs/detect/
 .env
-trashbin/
+trashbin/results_trashbin/
 temp_dataset_20201019_161210/
 yolo26n.pt
 wandb/
