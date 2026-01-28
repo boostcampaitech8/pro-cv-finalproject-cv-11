@@ -1,8 +1,15 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, UniqueConstraint, func
+from enum import Enum
+
+from sqlalchemy import Column, DateTime, Enum as PgEnum, ForeignKey, Integer, String, Text, UniqueConstraint, func
 from sqlalchemy.orm import relationship
 
 from app.db import Base
 
+class ServiceStatus(str, Enum):
+    PENDING = "PENDING"
+    PROCESSING = "PROCESSING"
+    COMPLETED = "COMPLETED"
+    FAILED = "FAILED"
 
 class Task(Base):
     __tablename__ = "tasks"
@@ -10,6 +17,7 @@ class Task(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     video_id = Column(Integer, ForeignKey("videos.id", ondelete="CASCADE"), nullable=False)
+    status = Column(PgEnum(ServiceStatus, name="service_status"), nullable=False, default=ServiceStatus.PENDING)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
     video = relationship("Video", backref="tasks", lazy="joined")
