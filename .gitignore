@@ -6,4 +6,8 @@ runs/detect/
 trashbin/results_trashbin/
 temp_dataset_20201019_161210/
 yolo26n.pt
+yolo26s.pt
+yolo26l.pt
+yolo26m.pt
+yolo26x.pt
 wandb/
