@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 # ========== 설정 변수 ==========
 # 모델 및 데이터셋 설정
 # MODEL_WEIGHT = "./models/yolo26s/yolo26s.pt"
-MODEL_WEIGHT = "./yolo26s.pt"
+MODEL_WEIGHT = "./yolo26l.pt"
 DATASET_CONFIG = "models/yolo26s/vehicle_dataset.yaml"
 TRAIN_IMAGE_DIR = "/data/ephemeral/home/dataset/flatten_road_dataset_bb/train/images"
 VAL_IMAGE_DIR = "/data/ephemeral/home/dataset/flatten_road_dataset_bb/val/images"
@@ -21,15 +21,15 @@ VAL_IMAGE_DIR = "/data/ephemeral/home/dataset/flatten_road_dataset_bb/val/images
 # 학습 설정
 EPOCHS = 40
 IMAGE_SIZE = (640, 640)
-BATCH_SIZE = 24
+BATCH_SIZE = 40
 USE_AMP = True
 SEED = 42
 
 # 저장 경로 설정
 TRAIN_PROJECT = "cv-11-final"
-VERSION="v6"
+VERSION="v1"
 # TRAIN_NAME = f"train_yolo26s_{VERSION}"
-TRAIN_NAME = f"yolo26s_{VERSION}_e{EPOCHS}_b{BATCH_SIZE}"
+TRAIN_NAME = f"yolo26l_{VERSION}_e{EPOCHS}_b{BATCH_SIZE}"
 
 # Wandb 설정
 load_dotenv()
