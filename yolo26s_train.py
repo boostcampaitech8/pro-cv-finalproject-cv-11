@@ -6,9 +6,11 @@ YOLOv26s Vehicle Detection - Training
 """
 
 import os
+from pathlib import Path
 from ultralytics import YOLO
 import wandb
 from dotenv import load_dotenv
+import pandas as pd
 
 # ========== 설정 변수 ==========
 # 모델 및 데이터셋 설정
@@ -43,6 +45,62 @@ wandb.login()
 # WANDB_RUN_NAME = f"yolo26s_{VERSION}_e{EPOCHS}_b{BATCH_SIZE}"  # 간단한 run name
 
 # ================================
+
+
+def print_best_epoch_info(results_csv_path):
+    """
+    results.csv에서 best epoch 정보 출력
+    
+    Args:
+        results_csv_path: results.csv 파일 경로
+    """
+    results_path = Path(results_csv_path)
+    if not results_path.exists():
+        print(f"[Warning] results.csv를 찾을 수 없습니다: {results_csv_path}")
+        return
+    
+    try:
+        # Load the training log
+        results = pd.read_csv(results_csv_path)
+        
+        # Strip spaces from column names
+        results.columns = results.columns.str.strip()
+        
+        # Calculate fitness: 0.1 × mAP50 + 0.9 × mAP50-95
+        results["fitness"] = results["metrics/mAP50(B)"] * 0.1 + results["metrics/mAP50-95(B)"] * 0.9
+        
+        # Find the epoch with the highest fitness
+        best_idx = results['fitness'].idxmax()
+        best_epoch = int(results.loc[best_idx, 'epoch'])
+        best_fitness = results.loc[best_idx, 'fitness']
+        best_mAP50 = results.loc[best_idx, 'metrics/mAP50(B)']
+        best_mAP50_95 = results.loc[best_idx, 'metrics/mAP50-95(B)']
+        best_precision = results.loc[best_idx, 'metrics/precision(B)']
+        best_recall = results.loc[best_idx, 'metrics/recall(B)']
+        
+        # 결과 출력
+        print()
+        print("=" * 70)
+        print(f"🏆 Best Model Info (Epoch {best_epoch})")
+        print("=" * 70)
+        print(f"Fitness:       {best_fitness:.6f}  (= 0.1×mAP50 + 0.9×mAP50-95)")
+        print(f"mAP50-95:      {best_mAP50_95:.5f}")
+        print(f"mAP50:         {best_mAP50:.5f}")
+        print(f"Precision:     {best_precision:.5f}")
+        print(f"Recall:        {best_recall:.5f}")
+        print()
+        
+        # Top 5 epochs 출력
+        print("📊 Top 5 Epochs (by fitness):")
+        print("-" * 70)
+        top5 = results.nlargest(5, 'fitness')[['epoch', 'fitness', 'metrics/mAP50-95(B)', 'metrics/mAP50(B)', 'metrics/recall(B)']]
+        for idx, row in top5.iterrows():
+            marker = "✓" if int(row['epoch']) == best_epoch else " "
+            print(f"{marker} Epoch {int(row['epoch']):2d}  |  Fitness: {row['fitness']:.6f}  |  mAP50-95: {row['metrics/mAP50-95(B)']:.5f}  |  mAP50: {row['metrics/mAP50(B)']:.5f}  |  Recall: {row['metrics/recall(B)']:.5f}")
+        print("=" * 70)
+        
+    except Exception as e:
+        print(f"[Warning] Best epoch 정보 출력 중 오류 발생: {e}")
 
 
 def main():
@@ -117,6 +175,11 @@ def main():
     print(f"  - 모델 가중치: {TRAIN_PROJECT}/{TRAIN_NAME}/weights/best.pt")
     print(f"  - 학습 로그: {TRAIN_PROJECT}/{TRAIN_NAME}/")
     print(f"  - Validation 결과: {TRAIN_PROJECT}/{TRAIN_NAME}/val_*.jpg")
+    
+    # Best epoch 정보 출력
+    results_csv_path = f"{TRAIN_PROJECT}/{TRAIN_NAME}/results.csv"
+    print_best_epoch_info(results_csv_path)
+    
     print()
     print("💡 추론을 수행하려면 다음 명령을 실행하세요:")
     print(f"   python yolo26s_inference.py")
