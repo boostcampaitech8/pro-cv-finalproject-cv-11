@@ -16,4 +16,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+
+  // ⭐ 여기 추가
+  server: {
+    port: 3000,       // 원하는 포트 (5173 유지하고 싶으면 이 줄 제거)
+    strictPort: true, // 해당 포트 못 쓰면 에러
+  },
 })

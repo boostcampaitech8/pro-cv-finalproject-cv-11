@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MainPage } from '@/app/components/MainPage';
 import { UploadPage } from '@/app/components/UploadPage';
 import { ResultsPage } from '@/app/components/ResultsPage';
 import { MyPage } from '@/app/components/MyPage';
 import { AnalysisResult } from '@/app/components/AnalysisDashboard';
+import axios from 'axios';
 
 // Mock data for demonstration
 const mockResults: AnalysisResult[] = [
@@ -83,6 +84,18 @@ export default function App() {
   const [selectedEvents, setSelectedEvents] = useState<string[]>([]);
   const [results, setResults] = useState<AnalysisResult[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  useEffect(() => {
+  const checkBackend = async () => {
+    try {
+      const res = await axios.get('http://localhost:8000/health');
+      console.log('FastAPI 연결 성공:', res.data);
+    } catch (err) {
+      console.error('FastAPI 연결 실패:', err);
+    }
+  };
+
+  checkBackend();
+}, []);
 
   const handleNavigate = (page: Page) => {
     setCurrentPage(page);
@@ -104,23 +117,40 @@ export default function App() {
     );
   };
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (uploadedFiles.length === 0 || selectedEvents.length === 0) {
       return;
     }
 
     setIsAnalyzing(true);
-    
-    // Simulate analysis process
-    setTimeout(() => {
-      // Filter mock results based on selected events
-      const filteredResults = mockResults.filter((result) =>
-        selectedEvents.includes(result.eventType)
-      );
-      setResults(filteredResults);
+
+    try {
+      const formData = new FormData();
+
+      // 파일들 추가
+      uploadedFiles.forEach((file) => {
+        formData.append("files", file);
+      });
+
+      // 선택 이벤트도 같이 전송
+      formData.append("events", JSON.stringify(selectedEvents));
+
+      const res = await fetch("http://localhost:8000/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      console.log("업로드 결과:", data);
+
+      // 일단 성공하면 바로 결과 페이지로 이동 (임시)
+      setResults([]);
+      setCurrentPage("results");
+    } catch (err) {
+      console.error("분석 요청 실패:", err);
+    } finally {
       setIsAnalyzing(false);
-      setCurrentPage('results');
-    }, 2500);
+    }
   };
 
   return (
