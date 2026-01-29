@@ -1,0 +1,6 @@
+[submodule "black-duck-web"]
+	path = black-duck-web
+	url = https://github.com/CV-11-boostcamp-ai-tech-8th/black-duck-web.git
+[submodule "black-duck-model"]
+	path = black-duck-model
+	url = https://github.com/CV-11-boostcamp-ai-tech-8th/black-duck-model.git
