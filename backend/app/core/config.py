@@ -1,5 +1,6 @@
 import logging
 import sys
+from pathlib import Path
 
 from app.core.logging import InterceptHandler
 from loguru import logger
@@ -17,6 +18,14 @@ SECRET_KEY: Secret = config("SECRET_KEY", cast=Secret, default="")
 DATABASE_URL: str = config("DATABASE_URL", default="sqlite:///./app.db")
 
 PROJECT_NAME: str = config("PROJECT_NAME", default="backend")
+
+# Optional integrations / paths
+BASE_DIR = Path(__file__).resolve().parents[2]  # backend/ directory
+STORAGE_BASE_DIR = BASE_DIR / "storage"
+GCS_BUCKET_NAME: str = config("GCS_BUCKET_NAME", default="")
+GPU_SSH_HOST: str = config("GPU_SSH_HOST", default="")
+GPU_SSH_USER: str = config("GPU_SSH_USER", default="root")
+GPU_SSH_PORT: int = config("GPU_SSH_PORT", cast=int, default=22)
 
 # logging configuration
 LOGGING_LEVEL = logging.DEBUG if DEBUG else logging.INFO
