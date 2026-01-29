@@ -1,6 +1,6 @@
 # Project Log (FE-BE-DB Compose + GPU SSH)
 
-_Date_: 2026-01-25 (UTC−05 assumed)
+_Date_: 2026-01-28 (UTC−05 assumed)
 
 ## What was done
 1) Added dev Dockerfile for Vite React app at `frontend/Dockerfile` (Node 20, runs `npm run dev --host --port 5173`).
@@ -21,6 +21,8 @@ _Date_: 2026-01-25 (UTC−05 assumed)
    - 로컬/원격 모델 관련 코드, 엔드포인트, 테스트, env 설정, `backend/ml` 디렉터리 삭제
 9) 최소 Pytest 복구 (2026-01-25):
    - `backend/tests/test_connect.py`에서 sqlite 인메모리를 사용해 `/api/v1/connect_check`와 `/api/v1/db_check` 정상 응답을 검증
+10) DB 스키마 초안 추가 (2026-01-28):
+   - `db_schema.md`에 원본영상/작업/분석 이벤트 타입/분석 결과/신고 정보 테이블 정의 정리
 
 ## How to run locally (dev)
 - Make sure Docker/Compose is running.
