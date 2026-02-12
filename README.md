@@ -83,11 +83,11 @@
 ## 👥 Team CV-11 Members
 <table align="center">
     <tr align="center">
-        <td><img src="https://github.com/hyeongseokgo.png" width="140"></td>
-        <td><img src="https://github.com/M1niJ.png" width="140"></td>
-        <td><img src="https://github.com/uss0302-cmd.png" width="140"></td>
-        <td><img src="https://github.com/Ea3124.png" width="140"></td>
-        <td><img src="https://github.com/cuffyluv.png" width="140"></td>
+        <td><img src="https://github.com/hyeongseokgo.png" width="120"></td>
+        <td><img src="https://github.com/M1niJ.png" width="120"></td>
+        <td><img src="https://github.com/uss0302-cmd.png" width="120"></td>
+        <td><img src="https://github.com/Ea3124.png" width="120"></td>
+        <td><img src="https://github.com/cuffyluv.png" width="120"></td>
     </tr>
     <tr align="center">
         <td><a href="https://github.com/hyeongseokgo" target="_blank">고형석</a></td>
